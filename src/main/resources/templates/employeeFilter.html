@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Фильтрация сотрудников</h1>
+<form method="post" th:action="${'/employee/filter/result'}">
+
+    <h2>Мягкий</h2>
+    <input type="text" name="employeeName" placeholder="имя сотрудника">
+    <button type="submit">Найти</button>
+    <div th:each="el : ${result}">
+        <h3 th:text="${el.employeeName}"></h3>
+        <p th:text="${el.salary}"></p>
+        <p th:text="${el.age}"></p>
+        <p th:text="${el.height}"></p>
+        <p th:text="${el.deletedEmployee}"></p>
+    </div>
+    <h2>Не мягкий</h2>
+    <div th:each="el : ${result1}">
+        <h3 th:text="${el.employeeName}"></h3>
+        <p th:text="${el.salary}"></p>
+        <p th:text="${el.age}"></p>
+        <p th:text="${el.height}"></p>
+        <p th:text="${el.deletedEmployee}"></p>
+    </div>
+</form>
+</body>
+</html>

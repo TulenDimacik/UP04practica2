@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление клиента</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="${'/client/add'}" method="post">
+    <input type="text" name="clientName" placeholder="Имя сотрудника">
+    <br>
+    <input type="text" name="orderCost" placeholder="зарплата">
+    <br>
+    <input type="text" name="clientAge" placeholder="возраст">
+    <br>
+    <input type="text" name="orderWeight" placeholder="рост">
+    <br>
+    <p>Оплачено</p><input type="checkbox" name="payment" >
+    <br>
+    <button type="submit">Добавить клиента</button>
+</form>
+</body>
+</html>
