@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<div th:insert="blocks/header"></div>
 <form th:action="${'/client/add'}" method="post">
     <input type="text" name="clientName" placeholder="Имя сотрудника">
     <br>
@@ -17,6 +18,7 @@
     <p>Оплачено</p><input type="checkbox" name="payment" >
     <br>
     <button type="submit">Добавить клиента</button>
+
 </form>
 </body>
 </html>

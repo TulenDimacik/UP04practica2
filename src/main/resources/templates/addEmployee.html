@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<div th:insert="blocks/header"></div>
 <form th:action="${'/employee/add'}" method="post">
     <input type="text" name="employeeName" placeholder="Имя сотрудника">
     <br>
@@ -17,6 +18,7 @@
     <p>Уволен</p><input type="checkbox" name="deletedEmployee">
     <br>
     <button type="submit">Добавить сотрудника</button>
+
 </form>
 </body>
 </html>

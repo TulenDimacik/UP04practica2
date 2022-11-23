@@ -42,4 +42,12 @@ public class ClientInformation {
     public boolean isPayment() {return payment;}
 
     public void setPayment(boolean payment) {this.payment = payment;}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Данные сотрудника</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+<div th:each="el : ${info}">
+  <h3>Поподробнее про сотрудника:</h3>
+  <h3 th:text="${el.employeeName}"></h3>
+  <p th:text="${el.age}"></p>
+  <p th:text="${el.salary}"></p>
+  <p th:text="${el.height}"></p>
+  <p th:text="${el.deletedEmployee}"></p>
+  <a th:href="'/employee/'+${el.id}+'/edit'">Редактировать</a>
+  <form th:action="'/employee/'+${el.id}+'/remove'" method="post">
+    <button type="submit">Удалить</button>
+  </form>
+
+</div>
+</body>
+</html>

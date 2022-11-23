@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование данных клиента</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+<div th:each="el: ${info}">
+    <form method="post">
+        <input type="text" th:value="${el.clientName}" name="clientName">
+        <input type="text" th:value="${el.clientAge}" name="clientAge">
+        <input type="text" th:value="${el.orderWeight}" name="orderWeight" >
+        <input type="text" th:value="${el.orderCost}" name="orderCost" >
+        <input type="checkbox" th:checked="${el.payment}" name="anons">
+        <br>
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+</div>
+</body>
+</html>

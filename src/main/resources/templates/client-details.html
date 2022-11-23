@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Данные клиента</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+<div th:each="el : ${info}">
+    <h3>Поподробнее про клиента:</h3>
+    <h3 th:text="${el.clientName}"></h3>
+    <p th:text="${el.orderCost}"></p>
+    <p th:text="${el.clientAge}"></p>
+    <p th:text="${el.orderWeight}"></p>
+    <p th:text="${el.payment}"></p>
+    <a th:href="'/client/'+${el.id}+'/edit'">Редактировать</a>
+    <form th:action="'/client/'+${el.id}+'/remove'" method="post">
+    <button type="submit">Удалить</button>
+    </form>
+
+</div>
+</body>
+</html>

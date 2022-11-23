@@ -1,25 +1,25 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
   <title>Getting Started: Serving Web Content</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<form th:action="${'/empl'}">
-  <h1>Практическая №2</h1>
-  <a href="/client/filter">Поиск клиентов</a>
-  <a href="/employee/filter">Поиск сотрудников</a>
-  <a href="/client/add">Добавление клиента</a>
-  <a href="/employee/add">Добавление сотрудника</a>
-  <a href="/">Клиенты</a>
-  <h1>Данные сотрудников</h1>
-  <div th:each="el : ${employeeinformations}">
-    <h3 th:text="${el.employeeName}"></h3>
-    <p th:text="${el.salary}"></p>
-    <p th:text="${el.age}"></p>
-    <p th:text="${el.height}"></p>
-    <p th:text="${el.deletedEmployee}"></p>
-  </div>
+<body class="body">
+<div th:insert="blocks/header"></div>
+<form th:action="${'/employee'}">
+  <table  class="table">
+    <tr><td>Имя сотрудника</td><td>Возраст </td><td>Зарплата</td><td>Рост</td><td>Уволен</td><td>Другое</td></tr>
+    <tr th:each="el : ${employeeinformations}"><td th:text="${el.employeeName}"/>
+      <td th:text="${el.age}"/>
+      <td th:text="${el.salary}"/>
+      <td th:text="${el.height}"/>
+      <td th:text="${el.deletedEmployee}"/>
+      <td  ><a th:href="'/employee/'+${el.id}">Подробнее</a></td>
+    </tr>
+  </table>
+
+  <div th:insert="blocks/footer"></div>
 </form>
 </body>
 </html>

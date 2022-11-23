@@ -1,23 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head >
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<body class="body">
+<div th:insert="blocks/header"></div>
 <form th:action="${'/'}">
-<h1>Практическая №2</h1>
-<a href="/client/filter">Поиск клиентов</a>
-<a href="/employee/filter">Поиск сотрудников</a>
-<a href="/client/add">Добавление клиента</a>
-<a href="/employee/add">Добавление сотрудника</a>
-    <a href="/empl">Сотрудники</a>
-<h1>Данные клиентов</h1>
-<div th:each="el : ${clientInformations}">
-    <h3 th:text="${el.clientName}"></h3> <p th:text="${el.orderCost}"></p> <p th:text="${el.clientAge}"></p>
-    <p th:text="${el.orderWeight}"></p>
-    <p th:text="${el.payment}"></p>
-</div>
+    <table  class="table">
+        <tr><td>Имя клиента</td><td>Возраст клиента</td><td>Стоимость заказа</td><td>Вес заказа</td><td>Статус оплаты</td><td>Другое</td></tr>
+        <tr th:each="el : ${clientInformations}"><td th:text="${el.clientName}"/>
+            <td th:text="${el.clientAge}"/>
+            <td th:text="${el.orderCost}"/>
+            <td th:text="${el.orderWeight}"/>
+            <td th:text="${el.payment}"/>
+            <td  ><a th:href="'/client/'+${el.id}">Подробнее</a></td>
+        </tr>
+    </table>
+<!--    <h3 class="p" th:text="${el.clientName}"></h3> <p class="p" th:text="${el.orderCost}"></p> <p th:text="${el.clientAge}"></p>-->
+<!--    <p class="p" th:text="${el.orderWeight}"></p>-->
+<!--    <p class="p" th:text="${el.payment}"></p>-->
+<!--    <a class="p" th:href="'/client/'+${el.id}">Подробнее</a>-->
+    <div th:insert="blocks/footer"></div>
 </form>
 </body>
 </html>
