@@ -6,16 +6,24 @@
 </head>
 <body>
 <div th:insert="blocks/header"></div>
-<div th:each="el: ${info}">
-  <form method="post">
-    <input type="text" th:value="${el.employeeName}" name="employeeName">
-    <input type="text" th:value="${el.age}" name="age">
-    <input type="text" th:value="${el.salary}" name="salary" >
-    <input type="text" th:value="${el.height}" name="height" >
-    <input type="checkbox" th:checked="${el.deletedEmployee}" name="deletedEmployee">
-    <br>
-    <button type="submit">Сохранить изменения</button>
-  </form>
+<form method="post" th:object="${aboba}">
+  <input type="text" th:field="*{employeeName}" th:value="${employeeName}" id="employeeName" placeholder="Имя сотрудника" name="employeeName">
+  <div style="color: red" th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}"></div>
+
+  <input type="text" th:field="*{age}" th:value="${age}" id="age" placeholder="Возраст" name="age">
+  <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+
+  <input type="text" th:field="*{salary}" th:value="${salary}" id="salary"  placeholder="Зарплата"  name="salary" >
+  <div style="color: red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
+
+  <input type="text" th:field="*{height}" th:value="${height}" id="height"  placeholder="Рост"  name="height" >
+  <div style="color: red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
+
+  <input type="checkbox" th:field="*{deletedEmployee}" th:checked="${deletedEmployee}" id="payment"  name="anons">
+  <br>
+  <button type="submit">Сохранить изменения</button>
+</form>
+</div>
 
 </div>
 </body>

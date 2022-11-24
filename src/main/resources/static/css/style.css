@@ -1,6 +1,6 @@
 /* черный фон сайта */
 .body {
-    background-color: #755D9A;
+    background-color: #cba2c6;
 }
 .p{
     color: white;
@@ -23,4 +23,16 @@
     padding: 5px;
     border: none;
     border-bottom: 5px solid #F2F8F8;
+}
+.A {
+    padding-right: 10px;
+    text-decoration: none;
+    color: white; /* Цвет ссылок */
+}
+.A:visited {
+    text-decoration: none;
+    color: white; /* Цвет посещенных ссылок */
+}
+.A:hover {
+    color: white;
 }

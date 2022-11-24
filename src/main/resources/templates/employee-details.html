@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:insert="blocks/header"></div>
-<div th:each="el : ${info}">
+<div th:each="el : ${info1}">
   <h3>Поподробнее про сотрудника:</h3>
   <h3 th:text="${el.employeeName}"></h3>
   <p th:text="${el.age}"></p>

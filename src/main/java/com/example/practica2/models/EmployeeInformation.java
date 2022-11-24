@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.*;
 
 @Entity
 public class EmployeeInformation {
@@ -20,9 +21,18 @@ public class EmployeeInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2,max =30,message = "Размер должен быть от 2 до 30")
     private String employeeName;
+    @NotNull
+    @Min(value = 0,message ="Значение не должно быть меньше 0" )
     private double salary;
+    @NotNull
+    @Min(value = 0,message ="Значение не должно быть меньше 0" )
+    @Max(value = 100,message = "Значение не может быть больще 100")
     private int age;
+    @NotNull
+    @Min(value = 0,message ="Значение не должно быть меньше 0" )
     private float height;
     private boolean deletedEmployee;
     public String getEmployeeName() {return employeeName;}

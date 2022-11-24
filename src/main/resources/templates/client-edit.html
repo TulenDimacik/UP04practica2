@@ -6,17 +6,19 @@
 </head>
 <body>
 <div th:insert="blocks/header"></div>
-<div th:each="el: ${info}">
-    <form method="post">
-        <input type="text" th:value="${el.clientName}" name="clientName">
-        <input type="text" th:value="${el.clientAge}" name="clientAge">
-        <input type="text" th:value="${el.orderWeight}" name="orderWeight" >
-        <input type="text" th:value="${el.orderCost}" name="orderCost" >
-        <input type="checkbox" th:checked="${el.payment}" name="anons">
+    <form method="post" th:object="${abjobja}">
+        <input type="text" th:field="*{clientName}" th:value="${clientName}" id="clientName"  name="clientName">
+        <div style="color: red" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}"></div>
+        <input type="text" th:field="*{clientAge}" th:value="${clientAge}" id="clientAge"  name="clientAge">
+        <div style="color: red" th:if="${#fields.hasErrors('clientAge')}" th:errors="*{clientAge}"></div>
+        <input type="text" th:field="*{orderWeight}" th:value="${orderWeight}" id="orderWeight" name="orderWeight" >
+        <div style="color: red" th:if="${#fields.hasErrors('orderWeight')}" th:errors="*{orderWeight}"></div>
+        <input type="text" th:field="*{orderCost}" th:value="${orderCost}" id="orderCost"  name="orderCost" >
+        <div style="color: red" th:if="${#fields.hasErrors('orderCost')}" th:errors="*{orderCost}"></div>
+        <input type="checkbox" th:field="*{payment}" th:checked="${payment}" id="payment"  name="anons">
         <br>
         <button type="submit">Сохранить изменения</button>
     </form>
-
 </div>
 </body>
 </html>

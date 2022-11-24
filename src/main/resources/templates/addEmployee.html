@@ -6,19 +6,21 @@
 </head>
 <body>
 <div th:insert="blocks/header"></div>
-<form th:action="${'/employee/add'}" method="post">
-    <input type="text" name="employeeName" placeholder="Имя сотрудника">
+<form th:action="${'/employee/add'}" th:object="${employee}" method="post">
+    <input type="text" th:field="*{employeeName}" name="employeeName" placeholder="Имя сотрудника">
+    <div style="color: red" th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}"></div>
     <br>
-    <input type="text" name="salary" placeholder="зарплата">
+    <input type="text" name="salary" th:field="*{salary}" placeholder="Зарплата">
+    <div style="color: red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
     <br>
-    <input type="text" name="age" placeholder="возраст">
+    <input type="text" name="age" th:field="*{age}" placeholder="Возраст">
+    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
     <br>
-    <input type="text" name="height" placeholder="рост">
-    <br>
-    <p>Уволен</p><input type="checkbox" name="deletedEmployee">
+    <input type="text" name="height" th:field="*{height}" placeholder="Вес заказа">
+    <div style="color: red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
+    <p>Уволен</p><input type="checkbox" th:field="*{deletedEmployee}" name="deletedEmployee">
     <br>
     <button type="submit">Добавить сотрудника</button>
-
 </form>
 </body>
 </html>

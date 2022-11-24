@@ -8,11 +8,11 @@ import com.example.practica2.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,20 +29,17 @@ public class ClientController {
         return "mainPage";
     }
     @GetMapping("/client/add") //переходит на вью
-    public String clientAdd(Model model)
+    public String clientAdd(@ModelAttribute("clients") ClientInformation clientInformation)
     {
         return "addClient";
     }
 
     @PostMapping("/client/add")// добавление в бд
-    public String clientAdd(@RequestParam String clientName,
-                              @RequestParam (defaultValue = "0") double orderCost,
-                              @RequestParam (defaultValue = "0") int clientAge,
-                              @RequestParam (defaultValue = "0") float orderWeight,
-                              @RequestParam (defaultValue = "false")boolean payment, Model model)
+    public String clientAdd(@ModelAttribute("clients") @Valid ClientInformation clientInformation, BindingResult bindingResult)
     {
-        ClientInformation information = new ClientInformation(clientName, orderCost, clientAge, orderWeight, payment);
-        clientRepository.save(information);
+        if(bindingResult.hasErrors())
+            return "addClient";
+        clientRepository.save(clientInformation);
         return "redirect:/";
     }
     @GetMapping("/client/filter")
@@ -66,7 +63,7 @@ public class ClientController {
         Optional<ClientInformation> info = clientRepository.findById(id);
         ArrayList<ClientInformation> res = new ArrayList<>();
         info.ifPresent(res::add);
-        model.addAttribute("info",res);
+        model.addAttribute("abjobja",res);
         if(!clientRepository.existsById(id)){
             return "redirect:/";
         }
@@ -75,30 +72,17 @@ public class ClientController {
     @GetMapping ("/client/{id}/edit")
     public  String clientEdit(@PathVariable ("id") long id, Model model)
     {
-        if(!clientRepository.existsById(id)){
-        return "redirect:/";
-    }
-        Optional<ClientInformation> information = clientRepository.findById(id);
-        ArrayList<ClientInformation> res = new ArrayList<>();
-        information.ifPresent(res::add);
-        model.addAttribute("info",res);
-
+        ClientInformation res = clientRepository.findById(id).orElseThrow();
+        model.addAttribute("abjobja",res);
         return "client-edit";
     }
+
     @PostMapping ("/client/{id}/edit")
-    public  String clientUpdate(@PathVariable("id")long id,
-                                @RequestParam String clientName,
-                                @RequestParam (defaultValue = "0") double orderCost,
-                                @RequestParam (defaultValue = "0") int clientAge,
-                                @RequestParam (defaultValue = "0") float orderWeight,
-                                @RequestParam (defaultValue = "false")boolean payment, Model model)
+    public  String clientUpdate(@ModelAttribute("abjobja") @Valid ClientInformation clientInformation, BindingResult bindingResult,
+                                @PathVariable("id")long id)
     {
-        ClientInformation clientInformation = clientRepository.findById(id).orElseThrow();
-        clientInformation.setClientName(clientName);
-        clientInformation.setClientAge(clientAge);
-        clientInformation.setOrderCost(orderCost);
-        clientInformation.setOrderWeight(orderWeight);
-        clientInformation.setPayment(payment);
+        if(bindingResult.hasErrors())
+            return "client-edit";
         clientRepository.save(clientInformation);
         return "redirect:/";
     }
@@ -108,4 +92,5 @@ public class ClientController {
         clientRepository.delete(clientInformation);
         return "redirect:/";
     }
+
 }

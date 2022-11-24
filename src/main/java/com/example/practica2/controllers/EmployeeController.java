@@ -5,13 +5,13 @@ import com.example.practica2.models.ClientInformation;
 import com.example.practica2.models.EmployeeInformation;
 import com.example.practica2.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,21 +30,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/add") //переходит на вью
-    public String employeeAdd(Model model)
+    public String employeeAdd(@ModelAttribute("employee") EmployeeInformation employeeInformation)
     {
         return "addEmployee";
     }
 
     @PostMapping("/employee/add")// добавление в бд
-    public String employeeAdd(@RequestParam String employeeName,
-                              @RequestParam (defaultValue = "0") double salary,
-                              @RequestParam (defaultValue = "0") int age,
-                              @RequestParam (defaultValue = "0") float height,
-                              @RequestParam (defaultValue = "false") boolean deletedEmployee, Model model)
+    public String employeeAdd(@ModelAttribute("employee") @Valid EmployeeInformation employeeInformation, BindingResult bindingResult)
     {
-        EmployeeInformation information = new EmployeeInformation(employeeName, salary, age, height, deletedEmployee);
-        employeeRepository.save(information);
-        return "redirect:/";
+        if(bindingResult.hasErrors())
+            return "addEmployee";
+        employeeRepository.save(employeeInformation);
+        return "redirect:/employee";
     }
 
     @GetMapping("/employee/filter")
@@ -69,7 +66,7 @@ public class EmployeeController {
         Optional<EmployeeInformation> info = employeeRepository.findById(id);
         ArrayList<EmployeeInformation> res = new ArrayList<>();
         info.ifPresent(res::add);
-        model.addAttribute("info",res);
+        model.addAttribute("info1",res);
         if(!employeeRepository.existsById(id)){
             return "redirect:/employee";
         }
@@ -78,32 +75,23 @@ public class EmployeeController {
     @GetMapping ("/employee/{id}/edit")
     public  String employeeEdit(@PathVariable ("id") long id, Model model)
     {
-        if(!employeeRepository.existsById(id)){
-            return "redirect:/employee";
-        }
-        Optional<EmployeeInformation> information = employeeRepository.findById(id);
-        ArrayList<EmployeeInformation> res = new ArrayList<>();
-        information.ifPresent(res::add);
-        model.addAttribute("info",res);
-
+//        if(!employeeRepository.existsById(id)){
+//            return "redirect:/employee";
+//        }
+//        Optional<EmployeeInformation> information = employeeRepository.findById(id);
+//        ArrayList<EmployeeInformation> res = new ArrayList<>();
+//        information.ifPresent(res::add);
+        EmployeeInformation res = employeeRepository.findById(id).orElseThrow();
+        model.addAttribute("aboba",res);
         return "employee-edit";
     }
     @PostMapping ("/employee/{id}/edit")
-    public  String employeeUpdate(@PathVariable("id")long id,
-                                @RequestParam String employeeName,
-                                @RequestParam (defaultValue = "0") double salary,
-                                @RequestParam (defaultValue = "0") int age,
-                                @RequestParam (defaultValue = "0") float height,
-                                @RequestParam (defaultValue = "false")boolean deletedEmployee, Model model)
+    public  String employeeUpdate(@ModelAttribute("aboba") @Valid EmployeeInformation employeeInformation, BindingResult bindingResult,
+                                  @PathVariable("id")long id)
     {
-        EmployeeInformation employeeInformation = employeeRepository.findById(id).orElseThrow();
-        employeeInformation.setEmployeeName(employeeName);
-        employeeInformation.setAge(age);
-        employeeInformation.setSalary(salary);
-        employeeInformation.setHeight(height);
-        employeeInformation.setDeletedEmployee(deletedEmployee);
+        if(bindingResult.hasErrors())
+            return "employee-edit";
         employeeRepository.save(employeeInformation);
-
         return "redirect:/employee";
 
     }

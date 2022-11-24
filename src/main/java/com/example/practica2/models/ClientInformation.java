@@ -4,6 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.*;
 
 @Entity
 public class ClientInformation {
@@ -18,9 +19,19 @@ public class ClientInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2,max =30,message = "Размер должен быть от 2 до 30")
     private String clientName;
+    @NotNull
+    @Min(value = 0,message ="Значение не должно быть меньше 0" )
     private double orderCost;
+    @NotNull
+    @Min(value = 0,message ="Значение не должно быть меньше 0" )
+    @Max(value = 100,message = "Значение не может быть больще 100")
     private int clientAge;
+
+    @NotNull
+    @Min(value = 0,message ="Значение не должно быть меньше 0" )
     private float orderWeight;
     private boolean payment;
     public String getClientName() {return clientName;}

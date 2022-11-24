@@ -6,19 +6,23 @@
 </head>
 <body>
 <div th:insert="blocks/header"></div>
-<form th:action="${'/client/add'}" method="post">
-    <input type="text" name="clientName" placeholder="Имя сотрудника">
+<form th:action="${'/client/add'}" th:object="${clients}" method="post">
+    <input type="text" th:field="*{clientName}" name="clientName" placeholder="Имя клиента">
+    <div style="color: red" th:if="${#fields.hasErrors('clientName')}" th:errors="*{clientName}"></div>
     <br>
-    <input type="text" name="orderCost" placeholder="зарплата">
+    <input type="text" name="orderCost" th:field="*{orderCost}" placeholder="Стоимость заказа">
+    <div style="color: red" th:if="${#fields.hasErrors('orderCost')}" th:errors="*{orderCost}"></div>
     <br>
-    <input type="text" name="clientAge" placeholder="возраст">
+    <input type="text" name="clientAge" th:field="*{clientAge}" placeholder="Возраст">
+    <div style="color: red" th:if="${#fields.hasErrors('clientAge')}" th:errors="*{clientAge}"></div>
     <br>
-    <input type="text" name="orderWeight" placeholder="рост">
+    <input type="text" name="orderWeight" th:field="*{orderWeight}" placeholder="Вес заказа">
+    <div style="color: red" th:if="${#fields.hasErrors('orderWeight')}" th:errors="*{orderWeight}"></div>
     <br>
-    <p>Оплачено</p><input type="checkbox" name="payment" >
-    <br>
+    <div>
+    Оплачено  <input type="checkbox" th:field="*{payment}" name="payment" >
+    </div>
     <button type="submit">Добавить клиента</button>
-
 </form>
 </body>
 </html>
