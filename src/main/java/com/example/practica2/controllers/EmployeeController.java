@@ -48,9 +48,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/add")// добавление в бд
-    public String employeeAdd(@ModelAttribute("employee") @Valid EmployeeInformation employeeInformation,
-                              @RequestParam String number,
-                              BindingResult bindingResult, Model model)
+    public String employeeAdd(@ModelAttribute("employee") @Valid EmployeeInformation employeeInformation, BindingResult bindingResult,
+                              @RequestParam String number, Model model)
     {
         if(bindingResult.hasErrors()) {
             Iterable<Passport> passports = passporRepository.findAll();
