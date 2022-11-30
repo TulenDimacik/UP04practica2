@@ -20,6 +20,12 @@
     <div style="color: red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
     <p>Уволен</p><input type="checkbox" th:field="*{deletedEmployee}" name="deletedEmployee">
     <br>
+    <select name="number">
+        <div th:each="element : ${passports}">
+            <option th:text="${element.number}"></option>
+        </div>
+    </select>
+    <br>
     <button type="submit">Добавить сотрудника</button>
 </form>
 </body>

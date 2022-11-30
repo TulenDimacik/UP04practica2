@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление нового студента</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="${'/client/product/add/'}" method="post">
+    <select  name="clients">
+        <div th:each="element : ${clients}">
+            <option th:value="${element.id}" th:text="${element.clientName}"></option>
+        </div>
+    </select>
+    <select  name="products">
+        <div th:each="element : ${products}">
+            <option th:value="${element.id}" th:text="${element.productName}"></option>
+        </div>
+    </select>
+    <br>
+    <button type="submit">Добавить запись</button>
+</form>
+
+<!--<div th:each="cl : ${clients}">-->
+<!--    <h2 th:text="${cl.getClientName()}"></h2>-->
+<!--    Сотрудники:<br>-->
+<!--    <div th:each="em :${employes}">-->
+<!--        <div th:text="${em.getEmployeeName()}"></div><br>-->
+<!--        <form th:action = "'employee/delClient/'+ ${em.id} + '/'+ ${cl.id}" method="post">-->
+<!--            <button type="submit">Удалить</button>-->
+<!--        </form>-->
+<!--    </div>-->
+</div>
+</body>
+</html>

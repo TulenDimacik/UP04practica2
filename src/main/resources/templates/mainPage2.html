@@ -9,12 +9,18 @@
 <div th:insert="blocks/header"></div>
 <form th:action="${'/employee'}">
   <table  class="table">
-    <tr><td>Имя сотрудника</td><td>Возраст </td><td>Зарплата</td><td>Рост</td><td>Уволен</td><td>Другое</td></tr>
-    <tr th:each="el : ${employeeinformations}"><td th:text="${el.employeeName}"/>
+    <tr><td>Имя сотрудника</td><td>Возраст </td><td>Зарплата</td><td>Рост</td><td>Уволен</td><td>Паспорт</td><td>Другое</td></tr>
+    <tr th:each="el : ${employeeinformations}">
+      <td th:text="${el.employeeName}"/>
       <td th:text="${el.age}"/>
       <td th:text="${el.salary}"/>
       <td th:text="${el.height}"/>
       <td th:text="${el.deletedEmployee}"/>
+      <td>
+        <from th:each="pasp : ${el.getPassport()}">
+          <p th:text="${pasp.getSeries()}+' '+${pasp.getNumber()}"/>
+        </from>
+      </td>
       <td  ><a th:href="'/employee/'+${el.id}">Подробнее</a></td>
     </tr>
   </table>

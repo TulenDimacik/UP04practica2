@@ -9,12 +9,27 @@
 <div th:insert="blocks/header"></div>
 <form th:action="${'/'}">
     <table  class="table">
-        <tr><td>Имя клиента</td><td>Возраст клиента</td><td>Стоимость заказа</td><td>Вес заказа</td><td>Статус оплаты</td><td>Другое</td></tr>
+        <tr><td>Имя клиента</td><td>Возраст клиента</td><td>Стоимость заказа</td><td>Вес заказа</td><td>Статус оплаты</td><td>Товары</td><td>Адрес</td><td>Другое</td></tr>
         <tr th:each="el : ${clientInformations}"><td th:text="${el.clientName}"/>
             <td th:text="${el.clientAge}"/>
             <td th:text="${el.orderCost}"/>
             <td th:text="${el.orderWeight}"/>
             <td th:text="${el.payment}"/>
+            <td>
+                <form th:each="prod : ${el.getProducts()}">
+                    <div>
+                        <a th:text="${prod.getProductName()}"/>
+                        <p><a th:href="'client/'+ ${el.id} + '/'+ ${prod.id} + '/remove'">Удалить</a></p>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form th:each="adres : ${el.getAddress()}">
+                    <div>
+                        <a th:text="${adres.getStreet()}"/>
+                    </div>
+                </form>
+            </td>
             <td  ><a th:href="'/client/'+${el.id}">Подробнее</a></td>
         </tr>
     </table>

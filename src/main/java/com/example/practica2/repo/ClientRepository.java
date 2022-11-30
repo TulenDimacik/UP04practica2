@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ClientRepository extends CrudRepository<ClientInformation, Long> {
     List<ClientInformation> findByClientNameContains (String clientName);
+    List<ClientInformation> findByClientNameContaining  (String clientName);
+    List<ClientInformation> findByClientNameIsContaining (String clientName);
     List<ClientInformation> findByClientNameEquals  (String clientName);
 }

@@ -1,20 +1,20 @@
 package com.example.practica2.models;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
+@Table (name = "employee")
 public class EmployeeInformation {
-    public EmployeeInformation(String employeeName, double salary, int age, float height, boolean deletedEmployee) {
+    public EmployeeInformation(String employeeName, double salary, int age, float height, boolean deletedEmployee, Passport passport) {
         this.employeeName = employeeName;
         this.salary = salary;
         this.age = age;
         this.height = height;
         this.deletedEmployee = deletedEmployee;
+        this.passport = passport;
     }
 
     public EmployeeInformation() {}
@@ -35,6 +35,12 @@ public class EmployeeInformation {
     @Min(value = 0,message ="Значение не должно быть меньше 0" )
     private float height;
     private boolean deletedEmployee;
+
+    @OneToOne(optional = true, cascade = CascadeType.ALL)// обязательное или нет каскад - взаимодействие с данными в одной из сторон
+    //указываем у главной стороны при удалении пользователя удаляется и сам паспорт
+    //name - id паспорта при связи
+    @JoinColumn(name="passport_id")
+    private Passport passport;
     public String getEmployeeName() {return employeeName;}
 
     public void setEmployeeName(String employeeName) {this.employeeName = employeeName;}
@@ -61,4 +67,20 @@ public class EmployeeInformation {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+//    public List<ClientInformation> getClients() {
+//        return clients;
+//    }
+//
+//    public void setClients(List<ClientInformation> clients) {
+//        this.clients = clients;
+//    }
 }
