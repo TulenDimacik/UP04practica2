@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Пользователи</title>
+</head>
+<body>
+
+<div th:insert="blocks/header" ></div>
+
+<h1>Пользователи</h1>
+
+<a href="/registration" class="btn btn-success">Добавить пользователь</a>
+
+<div class="container">
+  <table class="table">
+    <tr>
+      <th>Логин</th>
+      <th>Роли</th>
+      <th>Другое</th>
+    </tr>
+    <tr th:each="el : ${user_list}">
+      <td th:text="${el.username}"></td>
+      <td>
+        <div th:each="role : ${el.roles}">
+          <p th:text="${role}"></p>
+        </div>
+      </td>
+      <td>
+        <a class="btn btn-primary"
+           th:href="'/admin/'+${el.id}">Подробнее...</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

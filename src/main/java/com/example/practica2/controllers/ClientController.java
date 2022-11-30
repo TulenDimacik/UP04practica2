@@ -10,6 +10,7 @@ import com.example.practica2.repo.ClientRepository;
 import com.example.practica2.repo.EmployeeRepository;
 import com.example.practica2.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 @Controller
 public class ClientController {
     @Autowired
